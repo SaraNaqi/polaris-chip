@@ -35,8 +35,57 @@
   <my-card></my-card>
 
   <!-- this is what is bringing in the definition for this tag -->
+
+ <button class="duplicate">Clone Card</button>
+  <button class="title">Change title</button>
+  <button class="img-change">Change image</button>
+  <button id="bg-change">Change background</button>
+  <button id="delete">Delete card</button>
+
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+
+  <script type="module">
+const getFirstCard = () => document.querySelector("my-card");
+const getLastCard = () => document.querySelector("my-card:last-of-type");
+
+//add more cards
+document.querySelector(".duplicate").addEventListener("click", () => {
+  const firstCard = getFirstCard();
+  if (!firstCard) return;
+  const newCard = firstCard.cloneNode(true);
+  firstCard.parentNode.insertBefore(newCard, firstCard.nextSibling);
+});
+//change title
+document.querySelector(".title").addEventListener("click" , () => {
+  const card = getFirstCard();
+  if (!card) return;
+  card.setAttribute("title","PSU student card");
+});
+
+//change image 
+document.querySelector(".img-change").addEventListener("click", () => {
+  const card = getFirstCard();
+  if (!card) return;
+  card.setAttribute( "image", "https://www.abc27.com/wp-content/uploads/sites/55/2023/09/GettyImages-1453853463.jpg?strip=1&w=640");
+  card.setAttribute("alt", "Penn State image")
+});
+// change background
+document.querySelector("#bg-change").addEventListener("click", () => {
+  const card = getFirstCard();
+  if(!card) return;
+  card.toggleAttribute("fancy");
+});
+
+//delete last card
+document.querySelector("#delete").addEventListener("click", () => {
+  const lastCard = getLastCard();
+  //document.querySelector(".card-list .card:last-child");
+  if (lastCard) lastCard.remove()
+});
+  
+  </script>
+
 </body>
 
 </html>

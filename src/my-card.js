@@ -13,19 +13,35 @@ export class MyCard extends LitElement {
   }
 
   constructor() {
-    super();
-    this.title = "My card";
+ super();
+ this.title = "My card";
+ this.image = "https://www.w3schools.com/bootstrap4/img_avatar1.png";
+ this.alt = " card image ";
+this.link = "https://hax.psu.edu"
+this.fancy = false;
   }
 
   static get styles() {
     return css`
-      .card {
-  max-width:400px;
+  :host {
+    display: block;
+    max-width: var(--mycard-max-width,400px);
+  }
+.card {
+max-width:400px;
   border: 2px solid #ddd;
   padding: 16px;
+  background-color: var(--my-card-fancy-bg, transparent);
 }
 .card-image{
   height: 200px;
+  object-fit: cover;
+}
+:host([fancy]) {
+display: inline-block;
+  background-color: var(--my-card-fancy-bg, pink);
+  border: 2px solid fuchsia;
+  box-shadow: 10px 5px 5px red;
 }
 .details-button{
   color: red;
@@ -38,10 +54,7 @@ export class MyCard extends LitElement {
 .details-button{
   display: inline-block;
 }
-.fancy {
-    background-color: blue;
-    border-color: black;
-  }
+
 @media (max-width: 800px) and (min-width: 501px) {
   .details-button {
     display: block;
@@ -59,168 +72,40 @@ export class MyCard extends LitElement {
     `;
   }
 
+  openChanged(e) {
+  console.log(e);
+  if (e.target.getAttribute('open') !== null) {
+    this.fancy = true;
+  }
+  else {
+    this.fancy = false;
+  }
+}
+
   render() {
-    return html`<div>
-<h1>Card changing controls</h1>
-<h2>Controls</h2>
-<div class="control-wrapper">
-  <button class="duplicate">Clone Card</button>
-  <button class="title">Change title</button>
-  <button class="img-change">Change image</button>
-  <button id="bg-change">Change background</button>
-  <button id="delete">Delete card</button>
-</div>
-
-<div class = "card-list">
-<div class = "card">
-  <div class ="class-header">
-  <img
-       class = "card-image"
-       src = "https://www.w3schools.com/bootstrap4/img_avatar1.png"
-       alt = "card-image"
-       />
-    <h2> Sara Naqi's Card</h2>
-  </div>
-  <div class ="card-body">
-    <div class ="section">
-  <p> this is a card that has a header and details </p>
+    return html`
+    <div class="card">
+      <div class="class-header">
+        <img class="card-image" src="${this.image}" alt="${this.alt}" />
+        <h2>${this.title}</h2>
+      </div>
+    <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+    <summary> Description</summary>
+    <div class="details-box">
+      <slot> this is a simple card with a small image with it.</slot>
     </div>
-    
-    <div>
-    <a class = "details-button" href="https://hax.psu.edu">
-      details
-    </a>
-  </div>
-  </div>
-<h1>Card changing controls</h1>
-<h2>Controls</h2>
-<div class="control-wrapper">
-  <button class="duplicate">Clone Card</button>
-  <button class="title">Change title</button>
-  <button class="img-change">Change image</button>
-  <button id="bg-change">Change background</button>
-  <button id="delete">Delete card</button>
-</div>
-
-<div class = "card-list">
-<div class = "card">
-  <div class ="class-header">
-  <img
-       class = "card-image"
-       src = "https://www.w3schools.com/bootstrap4/img_avatar1.png"
-       alt = "card-image"
-       />
-    <h2> Sara Naqi's Card</h2>
-  </div>
-  <div class ="card-body">
-    <div class ="section">
-  <p> this is a card that has a header and details </p>
-    </div>
-    
-    <div>
-    <a class = "details-button" href="https://hax.psu.edu">
-      details
-    </a>
-  </div>
-  </div>
-<h1>Card changing controls</h1>
-<h2>Controls</h2>
-<div class="control-wrapper">
-  <button class="duplicate">Clone Card</button>
-  <button class="title">Change title</button>
-  <button class="img-change">Change image</button>
-  <button id="bg-change">Change background</button>
-  <button id="delete">Delete card</button>
-</div>
-
-<div class = "card-list">
-<div class = "card">
-  <div class ="class-header">
-  <img
-       class = "card-image"
-       src = "https://www.w3schools.com/bootstrap4/img_avatar1.png"
-       alt = "card-image"
-       />
-    <h2> Sara Naqi's Card</h2>
-  </div>
-  <div class ="card-body">
-    <div class ="section">
-  <p> this is a card that has a header and details </p>
-    </div>
-    
-    <div>
-    <a class = "details-button" href="https://hax.psu.edu">
-      details
-    </a>
-  </div>
-  </div>
-<h1>Card changing controls</h1>
-<h2>Controls</h2>
-<div class="control-wrapper">
-  <button class="duplicate">Clone Card</button>
-  <button class="title">Change title</button>
-  <button class="img-change">Change image</button>
-  <button id="bg-change">Change background</button>
-  <button id="delete">Delete card</button>
-</div>
-
-<div class = "card-list">
-<div class = "card">
-  <div class ="class-header">
-  <img
-       class = "card-image"
-       src = "https://www.w3schools.com/bootstrap4/img_avatar1.png"
-       alt = "card-image"
-       />
-    <h2> Sara Naqi's Card</h2>
-  </div>
-  <div class ="card-body">
-    <div class ="section">
-  <p> this is a card that has a header and details </p>
-    </div>
-    
-    <div>
-    <a class = "details-button" href="https://hax.psu.edu">
-      details
-    </a>
-  </div>
-  </div>
-<h1>Card changing controls</h1>
-<h2>Controls</h2>
-<div class="control-wrapper">
-  <button class="duplicate">Clone Card</button>
-  <button class="title">Change title</button>
-  <button class="img-change">Change image</button>
-  <button id="bg-change">Change background</button>
-  <button id="delete">Delete card</button>
-</div>
-
-<div class = "card-list">
-<div class = "card">
-  <div class ="class-header">
-  <img
-       class = "card-image"
-       src = "https://www.w3schools.com/bootstrap4/img_avatar1.png"
-       alt = "card-image"
-       />
-    <h2> Sara Naqi's Card</h2>
-  </div>
-  <div class ="card-body">
-    <div class ="section">
-  <p> this is a card that has a header and details </p>
-    </div>
-    
-    <div>
-    <a class = "details-button" href="https://hax.psu.edu">
-      details
-    </a>
-  </div>
-  </div></div>`;
+    </details>
+    <a class="details-button" href="${this.link}">details</a>
+    </div>`;
   }
 
   static get properties() {
     return {
       title: { type: String },
+      image: { type: String },
+      alt: { type: String },
+      link: { type: String },
+      fancy: { type: Boolean, reflect: true },
     };
   }
 }
